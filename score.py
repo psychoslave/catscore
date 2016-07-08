@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import wikipedia
-import operator  # for dummy sorting
 import sys
 
 sample = 'Philosophers'
@@ -25,17 +24,18 @@ def readability_score(page):
 def get_scored_table(category):
     print category
     pages = getPagesIn(category)
-    scores = dict()
+    scores = []
     for page in pages:
-        scores[page] = readability_score(page)
+        scores.append((page, readability_score(page)))
+    scores.sort(key=lambda s: s[1])
 
-    sorted_scores = sorted(scores.items(), key=operator.itemgetter(1))
-    for page, score in sorted_scores:
-        print page, score
+    return scores
 
 if __name__ == "__main__":
     categories = sys.argv
     del categories[0]
     for category in categories:
-        get_scored_table(category)
+        scores = get_scored_table(category)
+        for page, score in scores:
+            print page, score
         print '---'
