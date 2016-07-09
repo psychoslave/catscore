@@ -32,7 +32,9 @@ def getPagesIn(category):
 def readability_score(page):
     """Return a readability score for the given page title"""
     summary = wikipedia.summary(page)
-    return 100./(len(summary)+1)  # the shorter the better, but avoid zero
+    if(len(summary) == 0):
+        return 0
+    return 100./(len(summary))  # except zero, the shorter the better
 
 
 def get_scored_table(category):
