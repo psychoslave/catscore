@@ -37,7 +37,6 @@ def readability_score(page):
 
 def get_scored_table(category):
     """Return an array of (title, score) tuples for pages in category"""
-    print category
     pages = getPagesIn(category)
     scores = []
     for page in pages:
@@ -48,9 +47,8 @@ def get_scored_table(category):
 
 if __name__ == "__main__":
     categories = sys.argv
-    del categories[0]
+    del categories[0]  # drop executable name
     for category in categories:
         scores = get_scored_table(category)
         for page, score in scores:
-            print page, score
-        print '---'
+            print '\t'.join([page, str(score)])
