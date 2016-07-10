@@ -1,0 +1,5 @@
+* split catscore.php according to the MVC division
+* use array of parameters to build queries rather than providing plain string
+* separate configuration elements in a specific file (user agent, target website…)
+* use a more realistic scoring evalation, possibly through ORES
+* make a webinterface (form enabling to fill the category, choose the wiki…)
