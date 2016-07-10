@@ -31,6 +31,7 @@ function categoryMembers($category)
 {
     global $cmlimit;
     $query = '?action=query&list=categorymembers&format=json'
+        . '&cmnamespace=0' // only include main namespace, ignore subcategories
         . '&cmlimit=' . $cmlimit
         . '&cmtitle=Category:' . urlencode($category);
     $response = json_decode( getResponse($query) ) ;
