@@ -2,4 +2,13 @@
 * use array of parameters to build queries rather than providing plain string
 * separate configuration elements in a specific file (user agent, target website…)
 * use a more realistic scoring evalation, possibly through ORES
+** scoring with https://pypi.python.org/pypi/readability
+** provide several readability scoring systems, providing a link "about" on 
+   the column header
 * make a webinterface (form enabling to fill the category, choose the wiki…)
+* documenting the code
+* documenting usage
+* implement pagination for large category
+* enable to sort asc/desc by type of scoring system
+* make page titles link to their respective pages
+* i18n https://wikitech.wikimedia.org/wiki/Help:Tool_Labs#Make_the_tool_translatable

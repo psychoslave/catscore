@@ -1,4 +1,5 @@
 <?php
+require_once('./vendor/soundasleep/html2text/html2text.php');
 $exlimit = 20;
 $cmlimit = 50;
 
@@ -40,6 +41,17 @@ function categoryMembers($category)
 
 function score($summary)
 {
+    $summary = Html2Text\Html2Text::convert($summary); // TODO is it possible to fetch preconverted text?
+    $summary = escapeshellarg($summary);
+    $lang = 'en';
+    $cmd = "echo $summary"
+        . "|tokenizer  -L${lang}-u8 -S -pP -E'' " // one sentence per line
+        . "|readability -L$lang" // get test results
+        . "| grep ARI:|cut -d':' -f2|sed -e 's/ //g'" // extract ARI value result
+        ;
+    exec($cmd, $output);
+    $score = floatval($output[0]); // get the only line and cast it to double
+    return $score;
     $length = strlen($summary);
     if($length ==  0)
         return 0;
@@ -98,7 +110,7 @@ $scores = getScores($category);
 <body>
 <h1>Summary scoring for some articles in the <?php echo $category ?> category</h1>
 <table>
-<tr><th>Title</th><th>Score</th>
+<tr><th>Title</th><th><a href="https://en.wikipedia.org/wiki/Automated_readability_index">ARI score</a></th>
 <?php
 foreach($scores as $title => $value)
         echo '<tr><td>' . $title . '</td><td>' . $value . "</td></tr>\n";
